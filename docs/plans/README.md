@@ -12,3 +12,4 @@ plan that is not `Ratified`.
 
 | Plan | Status |
 |---|---|
+| [PLAN-2026-11-tally-flags](PLAN-2026-11-tally-flags.md) | Proposed |
