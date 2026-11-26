@@ -11,5 +11,5 @@ maintainer accepts it.
 
 | Requirement | Status |
 |---|---|
-| [PRD-001](PRD-001-tally.md): tally | Proposed |
-| [PRD-002](PRD-002-tally-flags.md): tally-flags | Proposed |
+| [PRD-001](PRD-001-tally.md): tally | Accepted |
+| [PRD-002](PRD-002-tally-flags.md): tally-flags | Accepted |

@@ -1,6 +1,6 @@
 # ADR-002: Put tally's behaviour behind a testable run function
 
-**Status:** Proposed
+**Status:** Accepted
 
 Carries [PRD-002](../prd/PRD-002-tally-flags.md)'s "How success is
 measured", and PRD-001's.

@@ -1,6 +1,6 @@
 # ADR-001: Parse tally's flags by hand, before the first file name
 
-**Status:** Proposed
+**Status:** Accepted
 
 Carries [PRD-002](../prd/PRD-002-tally-flags.md) R2 and R8.
 

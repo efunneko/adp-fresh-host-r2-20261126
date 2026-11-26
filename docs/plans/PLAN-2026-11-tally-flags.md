@@ -1,6 +1,6 @@
 # PLAN: tally-flags
 
-**Status:** Proposed
+**Status:** Ratified
 **Feature:** tally-flags
 **Requirements:** [PRD-001](../prd/PRD-001-tally.md), [PRD-002](../prd/PRD-002-tally-flags.md)
 **Decisions:** [ADR-001](../adr/ADR-001-flag-parsing.md), [ADR-002](../adr/ADR-002-testable-entry-point.md)
