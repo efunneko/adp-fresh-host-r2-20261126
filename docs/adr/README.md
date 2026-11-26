@@ -8,3 +8,5 @@ so.
 
 | Decision | Status |
 |---|---|
+| [ADR-001](ADR-001-flag-parsing.md): Parse flags by hand, before the first file name | Proposed |
+| [ADR-002](ADR-002-testable-entry-point.md): A testable run function | Proposed |
