@@ -31,7 +31,8 @@ The same people and scripts as PRD-001.
   spaces, then, for a named file, a single space and the file's name as
   given. Standard input's line carries no name. Today's output with no flags
   is unchanged: `%d %d %d name`.
-- **R6. Total.** When two or more file names are given, after the per-file
+- **R6. Total.** This refines PRD-001 R3: when two or more file names are
+  given, after the per-file
   lines tally prints one more line: each selected count summed over the
   files, then a space and `total`. With standard input or one file name it
   prints no total.
@@ -39,15 +40,21 @@ The same people and scripts as PRD-001.
   error to standard error, exits 1 and prints no total. Files before it have
   already printed their lines; files after it are not read. This is today's
   behaviour, unchanged.
-- **R8. Usage.** An argument that starts with `-`, is not `-` or `--`, and
+- **R8. Usage.** Flags are read only before the first file name and before
+  `--`; every argument after either is a file name, however it is spelled.
+  Among the flags, an argument that starts with `-`, is not `-` or `--`, and
   holds any letter other than `l`, `w` and `c` is a usage error: tally writes
-  one usage line to standard error, nothing to standard output, and exits 2.
-  `--` ends the flags, so a file named `-l` is counted with `tally -- -l`.
+  exactly the line `usage: tally [-lwc] [--] [file ...]` to standard error,
+  nothing to standard output, and exits 2. `--` ends the flags, so a file
+  named `-l` is counted with `tally -- -l`, and `tally a.txt -x` counts
+  `a.txt` and then fails to open a file named `-x` (R7).
 
 ## How success is measured
 
-Each case below is a test of tally's standard output, standard error and
-exit status, compared exactly. With `a.txt` holding `hello world\n` and
+Each case below is a test of tally's standard output and exit status,
+compared exactly, and of its standard error: compared exactly for the usage
+line of R8, and otherwise checked only for being empty or not, since an
+error's text names a path and comes from the operating system. With `a.txt` holding `hello world\n` and
 `b.txt` holding `one\ntwo three\n`:
 
 | Command | Standard output | Exit |
@@ -61,7 +68,8 @@ exit status, compared exactly. With `a.txt` holding `hello world\n` and
 | `tally a.txt b.txt` | `1 2 12 a.txt`, `2 3 14 b.txt`, `3 5 26 total` | 0 |
 | `tally -l a.txt b.txt` | `1 a.txt`, `2 b.txt`, `3 total` | 0 |
 | `tally -l` with `a.txt` on standard input | `1` | 0 |
-| `tally -x a.txt` | nothing; one usage line on standard error | 2 |
+| `tally -x a.txt` | nothing; `usage: tally [-lwc] [--] [file ...]` on standard error | 2 |
+| `tally a.txt -x` | `1 2 12 a.txt`; an error on standard error; no total | 1 |
 | `tally a.txt missing.txt` | `1 2 12 a.txt`; the error on standard error; no total | 1 |
 
 ## Not in scope

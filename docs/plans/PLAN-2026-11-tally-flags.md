@@ -40,11 +40,13 @@ flags and the total line.
 **Acceptance criteria**, each checkable on its own:
 
 1. Every row of PRD-002's "How success is measured" table has a test of
-   `run` that compares standard output, standard error's emptiness or not,
-   and the exit status exactly, and each passes.
+   `run` that checks standard output, standard error and the exit status as
+   that section says, the usage line compared exactly, and each passes.
 2. `parseArgs` has tests for `-l`, `-w`, `-c`, `-lw`, `-wl`, `-lwc`, `-l -w`,
    `-ll`, `--` followed by `-l`, a lone `-`, a flag after a file name (read as
-   a file name), and `-x` (a usage error), and each passes.
+   a file name), `-x` (a usage error), and `-x` after a file name (read as a
+   file name), each asserting the `selection` and files it returns, and each
+   passes.
 3. With no flags, tally's output for one file, several files and standard
    input matches today's byte for byte, apart from the new total line for
    several files.

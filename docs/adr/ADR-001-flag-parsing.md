@@ -14,7 +14,9 @@ R8 requires a fixed usage error and `--` to end the flags.
 ## Decision
 
 tally parses its arguments with a small function of its own,
-`parseArgs(args []string) (selection, files []string, err error)`:
+`parseArgs(args []string) (sel selection, files []string, err error)`,
+where `selection` is a struct of three booleans,
+`type selection struct{ lines, words, bytes bool }`:
 
 - It reads arguments from the first. An argument `--` ends the flags and is
   dropped. An argument that starts with `-` and is longer than `-` is a flag
@@ -23,7 +25,10 @@ tally parses its arguments with a small function of its own,
 - **Flags may appear only before the first file name.** The first argument
   that is not a flag group, and every argument after it, is a file name. A
   lone `-` is a file name.
-- No selecting flag means all three counts.
+- No selecting flag means all three counts: `parseArgs` returns a
+  `selection` with all three set.
+- A usage error is returned as `err`, and `run` writes PRD-002 R8's usage
+  line and exits 2.
 
 ## Alternatives rejected
 
