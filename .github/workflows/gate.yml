@@ -1,0 +1,45 @@
+# The CI workflow that runs the gate. It is written to
+# .github/workflows/gate.yml.
+#
+# It runs the same command as the profile's `## Gate`, `sh scripts/gate.sh`,
+# on every push to the default branch, and proves what merged. It is never a
+# pull-request check: before a merge, the check is the gate the session runs
+# on its rebased branch, and a pull-request run would gate the same tree a
+# second time and make every merge wait for it. Do not add a `pull_request`
+# trigger, and do not make this job a required check.
+#
+# It runs the gate without `--base`, so every merge is tested whole. That is
+# what lets a session merge after a green gate without rebasing or gating
+# again: what the merge brought together is tested here, after the merge, and
+# a red here is fixed like any red on the default branch.
+#
+# This repository is a Go module, so the workflow sets up Go alone, at the
+# version go.mod names.
+name: gate
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A newer push supersedes nothing: every merge is proved on its own.
+concurrency:
+  group: gate-${{ github.sha }}
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Go
+        if: hashFiles('go.mod') != ''
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Gate
+        run: sh scripts/gate.sh
