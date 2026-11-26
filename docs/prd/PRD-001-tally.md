@@ -1,6 +1,6 @@
 # PRD-001: tally
 
-**Status:** Proposed
+**Status:** Accepted
 
 ## Problem
 

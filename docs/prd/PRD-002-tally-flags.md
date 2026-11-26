@@ -1,6 +1,6 @@
 # PRD-002: tally-flags
 
-**Status:** Proposed
+**Status:** Accepted
 
 Under [PRD-001](PRD-001-tally.md).
 
